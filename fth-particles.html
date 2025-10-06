@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yantai Chinese Toastmasters Club Particle Demo</title>
+<style>
+  html, body { margin:0; padding:0; height:100%; overflow:hidden; background:#111; }
+  #particles-js { width:100%; height:100%; }
+
+  /* 居中文字 */
+  #welcome-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    text-align: center;
+    line-height: 1.6;
+    pointer-events: none;
+  }
+
+  #welcome-text span {
+    display: block; /* 上下排列 */
+    opacity: 0;
+    animation: fadeInOut 6s infinite;
+  }
+
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    40% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  #welcome-text span:nth-child(1) { animation-delay: 0s; }
+  #welcome-text span:nth-child(2) { animation-delay: 3s; }
+</style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<!-- 居中轮播文字，欢乐黄 -->
+<div id="welcome-text">
+  <span style="color:#FFD700;">Welcome to Yantai Chinese Toastmasters Club</span>
+  <span style="color:#FFD700;">欢迎来到烟台中文头马俱乐部</span>
+</div>
+
+<!-- tsParticles CDN -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+<script>
+tsParticles.load("particles-js", {
+  fpsLimit: 60,
+  particles: {
+    number: { value: 120 },
+    color: { value: ["#00ffcc", "#ff00ff", "#ffff00"] },
+    shape: { type: "circle" },
+    opacity: { value: 0.8 },
+    size: { value: { min: 2, max: 5 } },
+    move: { enable: true, speed: 3, direction: "none", random: true, straight: false, outModes: "out" }
+  },
+  interactivity: {
+    events: { 
+      onHover: { enable: true, mode: "repulse" }, 
+      onClick: { enable: true, mode: "push" } 
+    },
+    modes: { repulse: { distance: 120 }, push: { quantity: 8 } }
+  },
+  detectRetina: true
+});
+</script>
+
+</body>
+</html>
