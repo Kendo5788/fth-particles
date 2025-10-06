@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Toastmasters Quick Quiz / 头马快速问答</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  text-align: center;
+  padding: 50px;
+}
+h1 {
+  color: #004aad; /* 忠诚蓝 */
+}
+button {
+  display: block;
+  margin: 15px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#score {
+  font-size: 20px;
+  margin-top: 20px;
+  color: #b22234; /* 勃艮第红 */
+}
+#feedback {
+  font-size: 18px;
+  margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<h1>Toastmasters Quick Quiz<br>头马快速问答</h1>
+
+<div id="quiz-container">
+  <p id="question"></p>
+  <div id="options"></div>
+</div>
+
+<div id="score">Score / 得分: 0</div>
+<div id="feedback"></div>
+
+<script>
+const quizData = [
+  {
+    question_en: "What is the primary goal of Toastmasters?",
+    question_cn: "头马的主要目标是什么？",
+    options: [
+      { text_en: "Improve communication skills", text_cn: "提升沟通技能", correct: true },
+      { text_en: "Play sports", text_cn: "进行体育运动", correct: false },
+      { text_en: "Learn cooking", text_cn: "学习烹饪", correct: false },
+    ]
+  },
+  {
+    question_en: "How long is a typical Toastmasters speech project?",
+    question_cn: "头马的演讲项目通常多长？",
+    options: [
+      { text_en: "5–7 minutes", text_cn: "5-7 分钟", correct: true },
+      { text_en: "1 hour", text_cn: "1 小时", correct: false },
+      { text_en: "30 seconds", text_cn: "30 秒", correct: false },
+    ]
+  },
+  {
+    question_en: "Toastmasters clubs are for developing?",
+    question_cn: "头马俱乐部主要帮助会员发展什么？",
+    options: [
+      { text_en: "Communication & Leadership", text_cn: "沟通与领导力", correct: true },
+      { text_en: "Mathematics", text_cn: "数学能力", correct: false },
+      { text_en: "Cooking skills", text_cn: "烹饪技能", correct: false },
+    ]
+  }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function loadQuestion() {
+  const q = quizData[currentQuestion];
+  document.getElementById("question").innerHTML = `${q.question_en}<br>${q.question_cn}`;
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement("button");
+    btn.innerHTML = `${opt.text_en} / ${opt.text_cn}`;
+    btn.onclick = () => checkAnswer(idx);
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function checkAnswer(idx) {
+  const q = quizData[currentQuestion];
+  const feedbackDiv = document.getElementById("feedback");
+  if(q.options[idx].correct){
+    score++;
+    feedbackDiv.textContent = "Correct! ✅ / 正确！";
+  } else {
+    feedbackDiv.textContent = "Wrong! ❌ / 错误！";
+  }
+  document.getElementById("score").textContent = `Score / 得分: ${score}`;
+  currentQuestion++;
+  if(currentQuestion < quizData.length){
+    setTimeout(() => {
+      feedbackDiv.textContent = "";
+      loadQuestion();
+    }, 1000);
+  } else {
+    setTimeout(() => {
+      document.getElementById("quiz-container").innerHTML = `<h2>Quiz Completed! / 问答结束！<br>Your score: ${score}/${quizData.length}</h2>`;
+    }, 1000);
+  }
+}
+
+// 初始加载
+loadQuestion();
+</script>
+
+</body>
+</html>
